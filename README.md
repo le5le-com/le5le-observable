@@ -1,13 +1,13 @@
-# le5le-store
+# le5le-abservable
 
-le5le-store - A global store and subcribe data for JavaScript apps.
+le5le-abserver - A abservable data for JavaScript apps.
 
 # Getting started
 
-## Store
+## Store [global]
 
 ```
-import { Store } from 'le5le-store';
+import { Store } from 'le5le-abservable';
 
 Store.set('name', 'topology');
 Store.get('name');
@@ -24,21 +24,31 @@ Store.set('obj', { str: 'abc', num: 1, arr: ['aaa', 111], children: { key: 123 }
 Store.get('obj.num'); // == 1
 
 Store.get('obj').num = 100;
-// 通知obj.num发生变化，触发订阅回调函数
-Store.updated('obj.num');
 ```
 
-## Cookie
+## new Store
 
 ```
-Cookie.set('token', 'secret', {path: '/'});
-Cookie.get('token');
-Cookie.delete('token');
+import { Store } from 'le5le-abservable';
+
+
+const store = new Store();
+store.set('name', 'topology');
+store.get('name');
+
+// 实时监听变化
+const subcribe = store.subcribe('name', value => {
+  console.log('name:', value);
+});
+// 取消订阅（监听）
+subcribe.unsubcribe();
+
+
+store.set('obj', { str: 'abc', num: 1, arr: ['aaa', 111], children: { key: 123 } });
+store.get('obj.num'); // == 1
+
+store.get('obj').num = 100;
 ```
-
-# Docs
-
-[→ docs](https://www.yuque.com/alsmile/le5le-store)
 
 # License
 
