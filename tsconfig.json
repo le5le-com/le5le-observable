@@ -7,5 +7,6 @@
     "declaration": true,
     "lib": ["es2018", "dom"]
   },
+  "include": ["src/**/*"],
   "exclude": ["node_modules", "**/*.spec.ts"]
 }
