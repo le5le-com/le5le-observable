@@ -1,7 +1,5 @@
 import { observableToRaw, parentKey } from "../cache";
-import { findObservable, patchIterator } from "./utils";
-import { beforeUpdate, afterUpdate, getKeyPath } from "../observer";
-
+import { findObservable, patchIterator, getKeyPath, beforeUpdate, afterUpdate } from "./utils";
 
 export const instrumentations = {
   has(key: object) {

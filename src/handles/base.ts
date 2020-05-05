@@ -1,6 +1,5 @@
 import { rawToObservable } from "../cache";
-import { findObservable, wellKnownSymbols } from "./utils";
-import { beforeUpdate, afterUpdate, getKeyPath } from "../observer";
+import { findObservable, wellKnownSymbols, getKeyPath, beforeUpdate, afterUpdate } from "./utils";
 
 export const baseHandlers = {
   get(target: object, key?: string | number | symbol, receiver?: object) {

@@ -1,5 +1,7 @@
-import { rawToObservable, parentKey } from "../cache";
+import { rawToObservable, parentKey, rawParent } from "../cache";
 import { Observable } from "../observable";
+import { observers } from "../data";
+import { Observer } from "../observer";
 
 export const wellKnownSymbols = new Set(
   Object.getOwnPropertyNames(Symbol)
@@ -37,3 +39,32 @@ export function patchIterator(iterator: any, isEntries: boolean) {
   return iterator;
 }
 
+
+export function getKeyPath(key: any, target: object) {
+  let parent = rawParent.get(target);
+  while (parent) {
+    key = parentKey.get(parent) + '.' + key;
+    parent = rawParent.get(parent);
+  }
+
+  return key;
+}
+
+export function beforeUpdate(value: any, oldVal: any, keyPath: any) {
+  let canUpdate = true;
+  observers.forEach((observer: Observer) => {
+    if (canUpdate && observer.willUpdate && keyPath.indexOf(observer.key) === 0) {
+      canUpdate = observer.willUpdate(value, oldVal);
+    }
+  });
+
+  return canUpdate;
+}
+
+export function afterUpdate(value: any, oldVal: any, keyPath: any) {
+  observers.forEach((observer: Observer) => {
+    if (observer.didUpdate && keyPath.indexOf(observer.key) === 0) {
+      observer.didUpdate(value, oldVal);
+    }
+  });
+}

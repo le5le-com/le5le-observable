@@ -14,8 +14,8 @@ export class Store {
     Store.set(this.key + '.' + key, value);
   }
 
-  subscribe(key: string, updated?: (value: any, oldVal: any) => void, beforeUpdate?: (value: any, oldVal: any) => boolean) {
-    return Store.subscribe(this.key + '.' + key, updated, beforeUpdate);
+  subscribe(key: string, didUpdate?: (value: any, oldVal: any) => void, beforeUpdate?: (value: any, oldVal: any) => boolean) {
+    return Store.subscribe(this.key + '.' + key, didUpdate, beforeUpdate);
   }
 
   static get(key?: string) {
@@ -47,14 +47,14 @@ export class Store {
     val[props[props.length - 1]] = value;
   }
 
-  static subscribe(key: string, updated?: (value: any, oldVal: any) => void, beforeUpdate?: (value: any, oldVal: any) => boolean) {
+  static subscribe(key: string, didUpdate?: (value: any, oldVal: any) => void, beforeUpdate?: (value: any, oldVal: any) => boolean) {
 
-    const observer = new Observer(key, updated, beforeUpdate);
+    const observer = new Observer(key, didUpdate, beforeUpdate);
     observers.add(observer);
 
     const value = Store.get(key);
     if (value !== undefined) {
-      updated(value, value);
+      didUpdate(value, value);
     }
 
     return observer;

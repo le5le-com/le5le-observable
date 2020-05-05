@@ -12,9 +12,9 @@
 - get(key): value  
   获取当前 key 对应的 value 值。
 
-- subscribe(key: string, updated?: (value: any, oldVal: any) => void, beforeUpdate?: (value: any, oldVal: any) => boolean): Observer  
-  订阅 key 的值，当 key 对应的 value 发生变化时，调用 updated、beforeUpdate 回调函数。  
-  updated - value 更新后的回调函数  
+- subscribe(key: string, didUpdate?: (value: any, oldVal: any) => void, beforeUpdate?: (value: any, oldVal: any) => boolean): Observer  
+  订阅 key 的值，当 key 对应的 value 发生变化时，调用 didUpdate、beforeUpdate 回调函数。  
+  didUpdate - value 更新后的回调函数  
   beforeUpdate - value 更新前的回调函数。如果返回 false，取消更新。  
   返回值 Observer：可观察者对象。
 
