@@ -53,9 +53,7 @@ export class Store {
     observers.add(observer);
 
     const value = Store.get(key);
-    if (value !== undefined) {
-      didUpdate(value, value);
-    }
+    didUpdate(value, value);
 
     return observer;
   }
